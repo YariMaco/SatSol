@@ -29,6 +29,8 @@ public class Suscripcion implements Serializable{
     private long id;
     private Date fechainicio;
     private Date fechafinal;
+    private String nickname;
+    private String contrasena;
     
     
     @OneToOne
@@ -90,6 +92,22 @@ public class Suscripcion implements Serializable{
     public void setTarjeta(Tarjeta tarjeta) {
         this.tarjeta = tarjeta;
     }  
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
     
     
     

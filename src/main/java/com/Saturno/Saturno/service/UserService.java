@@ -4,6 +4,7 @@
  */
 package com.Saturno.Saturno.service;
 
+import com.Saturno.Saturno.entity.Suscripcion;
 import com.Saturno.Saturno.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,13 +20,14 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     @Autowired
-    public IUsuarioService personaService;
+    private ISuscripcionService suscripcionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario Usuario = this.personaService.findByNickname(username);
-        Userprincipal userPrincipal = new Userprincipal(Usuario);
+        Suscripcion persona = this.suscripcionService.findByNickname(username);
+        Userprincipal userPrincipal = new Userprincipal(persona);
         return userPrincipal;
 
     }
 }
+

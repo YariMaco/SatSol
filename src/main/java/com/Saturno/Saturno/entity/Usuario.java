@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -23,11 +26,12 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nombre;
-    private String apellido1;    
-    private String nickname;
-    private String email;
-    private String contrasena;
+    private String apellido1;  
+    private String email;   
     private int telefono;
+    private int active;
+    private String roles = "";
+    private String permissions = "";
    
 
     public long getId() {
@@ -54,28 +58,12 @@ public class Usuario implements Serializable {
         this.apellido1 = apellido1;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
     }
 
     public int getTelefono() {
@@ -85,11 +73,41 @@ public class Usuario implements Serializable {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
+    
+    public int getActive() {
+        return active;
+    }
 
-    
-    
-    
-    
-    
+    public void setActive(int active) {
+        this.active = active;
+    }
 
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
+    }
+    public List<String> getRoleList() {
+        if (this.roles.length() > 0) {
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
+    public List<String> getPermissionList() {
+        if (this.permissions.length() > 0) {
+            return Arrays.asList(this.permissions.split(","));
+        }
+        return new ArrayList<>();
+    }    
+  
 }

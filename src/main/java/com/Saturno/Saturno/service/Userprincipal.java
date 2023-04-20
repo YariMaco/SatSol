@@ -4,7 +4,7 @@
  */
 package com.Saturno.Saturno.service;
 
-import com.Saturno.Saturno.entity.Usuario;
+import com.Saturno.Saturno.entity.Suscripcion;
 import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
@@ -18,22 +18,22 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class Userprincipal implements UserDetails {
 
-    private Usuario usuario;
+    private Suscripcion suscipcion;
 
-    public Userprincipal(Usuario usuario) {
-        this.usuario = usuario;
+    public Userprincipal(Suscripcion suscipcion) {
+        this.suscipcion = suscipcion;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        this.usuario.getPermissionList().forEach(p -> {
+        this.suscipcion.getUsuario().getPermissionList().forEach(p -> {
             GrantedAuthority authority = new SimpleGrantedAuthority(p);
             authorities.add(authority);
         });
 
-        this.usuario.getRoleList().forEach(r -> {
+        this.suscipcion.getUsuario().getRoleList().forEach(r -> {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
             authorities.add(authority);
         });
@@ -42,12 +42,12 @@ public class Userprincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.usuario.getContrasena();
+        return this.suscipcion.getContrasena();
     }
 
     @Override
     public String getUsername() {
-        return this.usuario.getNickname();
+        return this.suscipcion.getNickname();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Userprincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.usuario != null && this.usuario.getActive() == 1;
+        return this.suscipcion.getUsuario() != null && this.suscipcion.getUsuario().getActive() == 1;
     }
 
 }

@@ -49,12 +49,18 @@ public class SuscripcionController {
         return "crearU";
     }
 
+  
     @PostMapping("/continuaR")
-    public String siguientePagina(@RequestParam("email") String email, HttpSession session) {
+    public String siguientePagina(@RequestParam("email") String email, HttpSession session, Model model) {
         session.setAttribute("email", email);
-        return "redirect:/usuarioN";
+        boolean correoExiste = usuarioService.verificarCorreoExistente(email);
+        if(correoExiste){
+           model.addAttribute("error", "*Correo ya en uso por una cuenta, inicie sesión*");
+           return "index";            
+        }else{
+            return "redirect:/usuarioN";
+        }        
     }
-
     @PostMapping("/suscripciones")
     public String crearSuscripcion(@ModelAttribute("usuario") Usuario usuario,
             @ModelAttribute("suscripcion") Suscripcion suscripcion,

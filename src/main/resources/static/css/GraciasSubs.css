@@ -1,0 +1,52 @@
+body{
+    margin: 0px;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+}
+.container{   
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56),rgba(0, 0, 0, 0.56)) ,url(../images/posters.jpg);
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+.objeto{
+    position: relative;
+    width: 55%;
+    height: 70%;
+    display: flex;
+    background: #541E50;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    gap: 10%;
+}
+#Logo{
+    width: 60%;
+    height: 70%;
+}
+.objeto .text{
+    font-size: 5vh;
+}
+.objeto a{
+    background-color: #B5C03D;
+    border-radius: 3%;
+    text-decoration: none;
+    padding: 2% 4%;
+    font-size: 2vh;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-weight: 200;
+}
+
+#Continuar{
+    position: absolute;
+    right: -27%;
+    bottom: 0%;
+}

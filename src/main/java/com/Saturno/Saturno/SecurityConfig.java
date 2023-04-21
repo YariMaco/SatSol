@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/index").permitAll() // Permitir acceso a todas las rutas sin autenticación
-                .antMatchers("/vistaUsuario").hasAnyRole("ADMIN", "USUARIO") // Requiere roles ADMIN o USUARIO
+                .antMatchers("/vistaUsuario").hasAnyRole("ADMIN", "USER") // Requiere roles ADMIN o USUARIO
                 .antMatchers("/peli").hasRole("ADMIN") // Requiere rol ADMIN
                 .and()
                 .formLogin()

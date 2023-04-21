@@ -21,6 +21,12 @@ body{
 .arriba{
     font-size:2.5vw;
 }
+.error-message {
+    color: #FFA500;
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+}
 .abajo{
     font-size: 1.5vw;
 

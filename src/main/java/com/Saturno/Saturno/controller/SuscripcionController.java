@@ -66,15 +66,22 @@ public class SuscripcionController {
             @ModelAttribute("suscripcion") Suscripcion suscripcion,
             @RequestParam("email") String email,
             @RequestParam("contrasenaconfirm") String contrasenaConfirm,
+            @RequestParam("contrasena") String contrasena,
+            @RequestParam("nickname") String nickname,
             Model model) {
-        if (!usuario.getContrasena().equals(contrasenaConfirm)) {
+        if (!contrasena.equals(contrasenaConfirm)) {
             model.addAttribute("error", "*Las contraseñas no coinciden*");
             model.addAttribute("email", email);
             return "crearU";
         }
         usuario.setEmail(email);
-        String contrasenaEncriptada = new BCryptPasswordEncoder().encode(usuario.getContrasena());
-        usuario.setContrasena(contrasenaEncriptada);
+        usuario.setActive(1);
+        usuario.setRoles("USER");
+        usuario.setPermissions("USER");
+        String contrasenaEncriptada = new BCryptPasswordEncoder().encode(contrasena);
+        suscripcion.setContrasena(contrasenaEncriptada);
+        suscripcion.setNickname(nickname);
+        
         usuarioService.saveUsuario(usuario);
 
         suscripcion.setUsuario(usuario);
@@ -133,11 +140,9 @@ public class SuscripcionController {
         Date finaliza = Date.valueOf(newLocalDate);
         suscripcion.setFechafinal(finaliza);
         suscripcion.setPlan(plan);
-        Usuario usuario = suscripcion.getUsuario();
         tarjetaService.saveTarjeta(tarjeta);
         suscripcion.setTarjeta(tarjeta);
         suscripcionService.saveSuscripcion(suscripcion);
-        model.addAttribute("usuario", usuario);
         return "redirect:/graciasSus";
     }
 
@@ -169,11 +174,6 @@ public class SuscripcionController {
     @GetMapping("/cuenta/cambioT")
     public String showCambioTelefono() {
         return "cambioTelefono";
-    }
-
-    @GetMapping("/iniSesion")
-    public String showIniSesion() {
-        return "inicioSesion";
     }
 
 }

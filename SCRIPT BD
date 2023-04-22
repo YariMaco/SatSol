@@ -1,0 +1,83 @@
+CREATE DATABASE Sat;
+use Sat;
+/*#########################################################################################################*/
+CREATE TABLE `planes` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`nombre` varchar(50) NOT NULL,
+`descripcion` varchar(150) not null,
+`duracion` int(4) NOT NULL,
+`precio` int(11) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+INSERT INTO `planes` VALUES (1,'1 mes','Tres Dispositivos al mismo tiempo, 720p.',1,4300),(2,'3 meses','Cuatro Dispositivos al mismo tiempo, 1080p.',3,11200),(3,'12 meses','Cuatro Dispositivos al mismo tiempo, 4K.',12,31499);
+/*#########################################################################################################*/
+CREATE TABLE `tarjetas` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`nombret` varchar(100) NOT NULL,
+`fechaex` varchar(100) NOT NULL,
+`codse` int(9) NOT NULL,  
+PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*#########################################################################################################*/
+CREATE TABLE `usuarios` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`nombre` varchar(50) NOT NULL,
+`apellido1` varchar(50) not null,
+`email` varchar(50) NOT NULL,
+`telefono` int(9) NOT NULL,
+`roles` varchar(45) NULL,
+`permissions` varchar(45) NULL,
+
+
+PRIMARY KEY (`id`)  
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*#########################################################################################################*/
+CREATE TABLE `suscripciones` (
+`id` int(11) NOT NULL AUTO_INCREMENT,  
+`fechainicio` date NULL,
+`fechafinal` date NULL,
+`planes_id` int(11) NULL,
+`usuarios_id` int(11) NOT NULL,/*Llama id usuario*/
+`tarjetas_id` int(11) NULL, 
+`nickname` varchar(50),
+`contrasena` varchar(255),
+`active` int,
+PRIMARY KEY (`id`,`usuarios_id`),
+KEY `fk_suscripciones_planes_idx` (`planes_id`),
+KEY `fk_suscripciones_usuarios_idx` (`usuarios_id`),
+KEY `fk_usuarios_usuarios_idx` (`tarjetas_id`),
+CONSTRAINT `fk_suscripciones_planes` FOREIGN KEY (`planes_id`) REFERENCES `planes` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT `fk_suscripciones_usuarios` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE, 
+CONSTRAINT `fk_usuarios_planes` FOREIGN KEY (`tarjetas_id`) REFERENCES `tarjetas` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE
+);
+/*#########################################################################################################*/
+CREATE TABLE `generos` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`nombre` varchar(50) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+INSERT INTO `generos` VALUES (1,'Acción'),(2,'Aventura'),(3,'Animado'),(4,'Ciencia Ficción'),(5,'Comedia'),(6,'Documental'),(7,'Drama'),(8,'Fantasía'),(9,'Musical'),(10,'Suspenso'),(11,'Terror');
+/*#########################################################################################################*/
+CREATE TABLE `peliculas` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`titulo` varchar(50) NOT NULL,
+`duracion` varchar(50) NOT NULL,
+`rutaimagen` varchar(255) not null,
+`descripcion` varchar(1000) not null,
+`director` varchar(100) not null,
+`actores` varchar(150) not null,
+`score` int(11) NOT NULL,
+`ano` int(11) NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*#########################################################################################################*/
+CREATE TABLE `pelicula_genero` (
+`peliculas_id` int(11) NOT NULL,
+`generos_id` int(11) NOT NULL,
+PRIMARY KEY (`peliculas_id`,`generos_id`),
+KEY `fk_pelicula_genero_peliculas_idx` (`peliculas_id`),
+KEY `fk_pelicula_genero_generos_idx` (`generos_id`),
+CONSTRAINT `fk_pelicula_genero_peliculas` FOREIGN KEY (`peliculas_id`) REFERENCES `peliculas` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT `fk_pelicula_genero_generos` FOREIGN KEY (`generos_id`) REFERENCES `generos` (`id`)  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;

@@ -29,7 +29,6 @@ public class Usuario implements Serializable {
     private String apellido1;  
     private String email;   
     private int telefono;
-    private int active;
     private String roles = "";
     private String permissions = "";
    
@@ -74,14 +73,6 @@ public class Usuario implements Serializable {
         this.telefono = telefono;
     }
     
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
-
     public String getRoles() {
         return roles;
     }

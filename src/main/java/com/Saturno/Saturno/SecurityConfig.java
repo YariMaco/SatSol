@@ -73,4 +73,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable(); // Deshabilitar protección de encabezados de frame
     }
 
+
 }

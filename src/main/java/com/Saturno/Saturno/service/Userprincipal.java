@@ -18,22 +18,22 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class Userprincipal implements UserDetails {
 
-    private Suscripcion suscipcion;
+    private Suscripcion suscripcion;
 
     public Userprincipal(Suscripcion suscipcion) {
-        this.suscipcion = suscipcion;
+        this.suscripcion = suscipcion;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        this.suscipcion.getUsuario().getPermissionList().forEach(p -> {
+        this.suscripcion.getUsuario().getPermissionList().forEach(p -> {
             GrantedAuthority authority = new SimpleGrantedAuthority(p);
             authorities.add(authority);
         });
 
-        this.suscipcion.getUsuario().getRoleList().forEach(r -> {
+        this.suscripcion.getUsuario().getRoleList().forEach(r -> {
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
             authorities.add(authority);
         });
@@ -42,12 +42,33 @@ public class Userprincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.suscipcion.getContrasena();
+        return this.suscripcion.getContrasena();
     }
 
     @Override
     public String getUsername() {
-        return this.suscipcion.getNickname();
+        return this.suscripcion.getNickname();
+    }
+
+    public int getTelefono() {
+        return this.suscripcion.getUsuario().getTelefono();
+    }
+
+    public String getNombre() {
+        return this.suscripcion.getUsuario().getNombre() + " " + this.suscripcion.getUsuario().getApellido1();
+    }
+
+    public String getApellido() {
+        return this.suscripcion.getUsuario().getApellido1();
+    }
+
+    public String getNombrePlan() {
+        return this.suscripcion.getPlan().getNombre();
+    }
+
+    public void setTelefono(int telefono) {
+        this.suscripcion.getUsuario().setTelefono(telefono);
+
     }
 
     @Override
@@ -67,7 +88,7 @@ public class Userprincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.suscipcion.getUsuario() != null && this.suscipcion.getUsuario().getActive() == 1;
+        return this.suscripcion != null && this.suscripcion.getActive() == 1;
     }
 
 }

@@ -21,7 +21,8 @@ import java.sql.Date;
  */
 @Entity
 @Table(name = "suscripciones")
-public class Suscripcion implements Serializable{
+public class Suscripcion implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -29,18 +30,18 @@ public class Suscripcion implements Serializable{
     private Date fechafinal;
     private String nickname;
     private String contrasena;
-    
-    
+    private int active;
+
     @OneToOne
-    @JoinColumn(name="usuarios_id")
+    @JoinColumn(name = "usuarios_id")
     private Usuario usuario;
-    
+
     @ManyToOne
-    @JoinColumn(name="planes_id")
+    @JoinColumn(name = "planes_id")
     private Plan plan;
-    
+
     @OneToOne
-    @JoinColumn(name="tarjetas_id")
+    @JoinColumn(name = "tarjetas_id")
     private Tarjeta tarjeta;
 
     public long getId() {
@@ -51,6 +52,15 @@ public class Suscripcion implements Serializable{
         this.id = id;
     }
 
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    
     public Date getFechainicio() {
         return fechainicio;
     }
@@ -81,15 +91,15 @@ public class Suscripcion implements Serializable{
 
     public void setPlan(Plan plan) {
         this.plan = plan;
-    }    
-    
+    }
+
     public Tarjeta getTarjeta() {
         return tarjeta;
     }
 
     public void setTarjeta(Tarjeta tarjeta) {
         this.tarjeta = tarjeta;
-    }  
+    }
 
     public String getNickname() {
         return nickname;
@@ -106,8 +116,5 @@ public class Suscripcion implements Serializable{
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-    
-    
-    
+
 }
- 

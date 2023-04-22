@@ -4,6 +4,12 @@ body{
     color: #fff;
 
 }
+.error-message {
+    color: #FFA500;
+    padding: 5px;
+    margin-top: 8px;
+    font-size: 14px;
+}
 a{
     color: white;
 }

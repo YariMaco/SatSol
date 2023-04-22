@@ -74,8 +74,7 @@ public class SuscripcionController {
             model.addAttribute("email", email);
             return "crearU";
         }
-        usuario.setEmail(email);
-        usuario.setActive(1);
+        usuario.setEmail(email);      
         usuario.setRoles("USER");
         usuario.setPermissions("USER");
         String contrasenaEncriptada = new BCryptPasswordEncoder().encode(contrasena);
@@ -139,6 +138,7 @@ public class SuscripcionController {
         LocalDate newLocalDate = localDate.plusMonths(meses);
         Date finaliza = Date.valueOf(newLocalDate);
         suscripcion.setFechafinal(finaliza);
+        suscripcion.setActive(1);
         suscripcion.setPlan(plan);
         tarjetaService.saveTarjeta(tarjeta);
         suscripcion.setTarjeta(tarjeta);
@@ -161,19 +161,5 @@ public class SuscripcionController {
         return "terminosYcondiciones";
     }
 
-    @GetMapping("/cuenta")
-    public String showMiCuenta() {
-        return "miCuenta";
-    }
-
-    @GetMapping("/cuenta/cambioC")
-    public String showCambioContrasena() {
-        return "cambioContrasena";
-    }
-
-    @GetMapping("/cuenta/cambioT")
-    public String showCambioTelefono() {
-        return "cambioTelefono";
-    }
-
+    
 }

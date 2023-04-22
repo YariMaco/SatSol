@@ -6,7 +6,6 @@ package com.Saturno.Saturno.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UsuarioController {
@@ -21,13 +20,6 @@ public class UsuarioController {
         
         return "cambioContrasena";
     }
-    @PostMapping("/cuenta/cambioC")
-    public String cambioContrasena() {
-        
-        return "reestablecida";
-    }
-    
-
     @GetMapping("/cuenta/cambioT")
     public String showCambioTelefono() {
         return "cambioTelefono";
